@@ -1,0 +1,24 @@
+---
+- name: Install as service
+  command: "cloudflared --config {{ config_dir }}/config.yml service install"
+  register: cloudflared_service
+  changed_when: cloudflared_service.rc == 0
+
+- name: Template custom service config file
+  template:
+    src: cloudflared.service.j2
+    dest: "{{ systemd_target_dir }}/cloudflared.service"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Reload systemctl to be safe
+  systemd:
+    daemon-reload: yes
+
+- name: Start service
+  service:
+    name: cloudflared
+    state: restarted
+  register: output
+  changed_when: output.rc == 0

@@ -1,0 +1,28 @@
+---
+- name: Extract tunnel certificate filename from create tunnel command
+  find:
+    paths: "{{ config_dir }}"
+    use_regex: yes
+    pattern: ".*\.json"
+    recurse: yes
+  register: certjson
+
+- name: debug filepaths
+  debug:
+    var: certjson
+  
+- name: Get uuid from filepath
+  set_fact:
+    argo_uuid: "{{ certjson[0].split('.')[0] }}"
+
+- name: debug uuid
+  debug:
+    var: argo_uuid
+
+- name: Template cloudflared config file
+  template:
+    src: config.yml.j2
+    dest: "{{ config_dir }}/config.yml"
+    owner: cloudflared
+    group: cloudflared
+    mode: 0755

@@ -1,0 +1,68 @@
+---
+# tasks file for cloudflared
+- name: Define required variables
+  set_fact:
+    daemon_location: "{{ install_target_dir }}/cloudflared"
+    cf_binary_filename: "{{ cf_binaries[ansible_machine].filename_tgz }}"
+    systemd_filename: "cloudflared"
+
+- name: Populate service facts
+  service_facts:
+
+- name: Create cloudflared user
+  user:
+    name: cloudflared
+    system: true
+    state: present
+    create_home: false
+    groups: adm
+    append: true
+    shell: /usr/sbin/nologin
+  when: not install_only
+
+- name: Download and install cloudflared
+  include_tasks: install.yml
+  when: install
+
+- name: Configuration tasks
+  block:
+    - name: Ensure config directory present
+    file:
+      path: "{{ config_dir }}"
+      state: directory
+      owner: cloudflared
+      group: cloudflared
+      mode: 0644
+
+  - name: Copy cert.pem
+    copy:
+      src: cert.pem
+      dest: "{{ config_dir }}/{{ cert_name }}"
+      owner: cloudflared
+      group: cloudflared
+      mode: 0600
+
+  - name: Run tunnel create
+    command:
+      cmd: cloudflared tunnel create {{ argo_hostname }}
+      chdir: "{{ config_dir }}"
+      creates: "{{ config_dir }}/*.json"
+    register: result
+    changed_when: result.rc == 0
+
+  - name: Configure tunnel
+    include_tasks: configure-tunnel.yml
+
+  - name: Configure cloudflared
+    include_tasks: configure.yml
+  when: not install_only
+
+- name: Create DNS record
+  command: "cloudflared tunnel route dns {{ argo_basename }}-{{ item.key }} {{ item.key }}-{{ argo_basename}}.cstunnel.xyz"
+  register: cloudflared_dns
+  loop: "{{ services | dict2items }}"
+
+- name: Remove cert
+  file:
+    path: "{{ config_dir }}/{{ cert_name }}"
+    state: absent

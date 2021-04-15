@@ -1,0 +1,13 @@
+[Unit]
+Description=Argo Tunnel
+After=network.target
+
+[Service]
+TimeoutStartSec=0
+Type=notify
+ExecStart={{ install_target_dir }}/cloudflared --config {{ config_dir }}/config.yml tunnel run
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

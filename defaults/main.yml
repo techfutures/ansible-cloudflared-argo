@@ -1,0 +1,26 @@
+---
+# defaults file for cloudflared
+systemd_user: tfi
+systemd_group: tfi
+use_system_v: False
+remove_setup_certificate: False
+
+download_baseurl: https://bin.equinox.io/c/VdrWdbjqyF/
+download_folder: /tmp
+install_only: False
+install: True
+configure_only: False
+create_tunnels: True
+force_install: False
+do_legacy_cleanup: False
+remove_unused_tunnels: False
+ssh_client_config: False
+ssh_client_config_group: ""
+
+autoupdate_freq: 24h
+
+services:
+  ssh:
+    port: 22
+    protocol: ssh
+    hostname: ssh
