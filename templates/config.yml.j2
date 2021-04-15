@@ -9,7 +9,7 @@ autoupdate-freq: {{ autoupdate_freq }}
 # ingress rules to provide to config file
 ingress:
   {% for service, details in services.items() %}
-  - hostname: {{ argo_hostname }}-{{ service }}.cstunnel.xyz
+  - hostname: {{ service }}-{{ argo_hostname }}.cstunnel.xyz
     service: {{ details.protocol }}://localhost:{{ details.port }}
   {% endfor %}
   #catch all rule
