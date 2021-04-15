@@ -26,7 +26,7 @@
 
 - name: Configuration tasks
   block:
-    - name: Ensure config directory present
+  - name: Ensure config directory present
     file:
       path: "{{ config_dir }}"
       state: directory
