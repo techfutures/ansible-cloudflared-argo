@@ -1,0 +1,5 @@
+---
+galaxy_info:
+  author: Andrew Gee, Nolan Crooks
+  description: This ansible role installs cloudflared and configures for use with argo tunnel.
+  company: Tech Futures Interactive Inc.
