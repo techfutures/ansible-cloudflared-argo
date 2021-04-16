@@ -1,15 +1,72 @@
 ---
-# POST 
-- name: Get access application list
+- name: POST access application for ssh
   uri:
     url: https://api.cloudflare.com/client/v4/accounts/{{ api_key }}/access/apps
     headers:
       Content-Type: application/json
       Authorization: Bearer {{ api_secret }}
-    method: GET
-  register: access
+    body:
+      name: "{{ argo_hostname.upper() }} {{ device.upper() }} SSH"
+      domain: "ssh-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
+    method: POST
+    body_format: json
+    status_code: 200
+  register: post_ssh_access_res
 
-- name: debug access
-  debug:
-    var: access
-    verbosity: 1
+- name: POST access application for services
+  uri:
+    url: https://api.cloudflare.com/client/v4/accounts/{{ api_key }}/access/apps
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer {{ api_secret }}
+    body:
+      name: "{{ argo_hostname.upper() }} {{ device.upper() }} SERVICES"
+      domain: "services-{{ device }}-{{ argo_hostname }}.cstunnel.xyz/*"
+      allowed_idps: "{{ allowed_idps | to_json }}"
+    method: POST
+    body_format: json
+    status_code: 200
+  register: post_services_access_res
+
+- name: Extract ids from post responses
+  set_fact:
+    ssh_id: "{{ post_ssh_access_res.result.id }}"
+    services_id: "{{ post_services_access_res.result.id }}"
+
+- name: POST policies for services
+  uri:
+    url: https://api.cloudflare.com/client/v4/accounts/{{ api_key }}/access/apps/{{ services_id }}/policies
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer {{ api_secret }}
+    body:
+      decision: "{{ item.key }}"
+      name: "{{ item.value.name }}"
+      include: "{{ item.value.include | to_json }}"
+      precedence: "{{ item.value.precedence }}"
+      exclude: "{{ item.value.exclude | to_json }}"
+      require: "{{ item.value.require | to_json }}"
+    method: POST
+    status_code: 200
+    body_format: json
+  register: post_services_policy_resp
+  loop: "{{ decisions | dict2items }}"
+
+- name: POST policies for ssh
+  uri:
+    url: https://api.cloudflare.com/client/v4/accounts/{{ api_key }}/access/apps/{{ ssh_id }}/policies
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer {{ api_secret }}
+    body:
+      decision: "{{ item.key }}"
+      name: "{{ item.value.name }}"
+      include: "{{ item.value.include | to_json }}"
+      precedence: "{{ item.value.precedence }}"
+      exclude: "{{ item.value.exclude | to_json }}"
+      require: "{{ item.value.require | to_json }}"
+    method: POST
+    status_code: 200
+    body_format: json
+  register: post_ssh_policy_resp
+  loop: "{{ decisions | dict2items }}"
