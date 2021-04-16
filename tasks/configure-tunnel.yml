@@ -1,7 +1,7 @@
 ---
 - name: Extract tunnel certificate filename from create tunnel command
   find:
-    paths: "{{ config_dir }}"
+    paths: "{{ config_dir }}/.credentials"
     use_regex: yes
     patterns: ".*.json"
     recurse: yes
