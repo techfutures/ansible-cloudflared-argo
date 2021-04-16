@@ -17,6 +17,7 @@ remove_unused_tunnels: False
 ssh_client_config: False
 ssh_client_config_group: ""
 ssh_port: 22
+session_duration: 15m
 
 autoupdate_freq: 24h
 

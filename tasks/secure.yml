@@ -9,6 +9,7 @@
       name: "{{ argo_hostname.upper() }} {{ device.upper() }} SSH"
       domain: "ssh-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
       allowed_idps: "{{ allowed_idps }}"
+      session_duration: "{{ session_duration }}"
     method: POST
     body_format: json
     status_code: [200, 201]
@@ -24,6 +25,7 @@
       name: "{{ argo_hostname.upper() }} {{ device.upper() }} SERVICES"
       domain: "services-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
       allowed_idps: "{{ allowed_idps }}"
+      session_duration: "{{ session_duration }}"
     method: POST
     body_format: json
     status_code: [200, 201]
