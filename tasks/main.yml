@@ -44,6 +44,9 @@
       debug:
         var: cloudflared_dns
 
+    - name: Secure tunnel
+      include_tasks: secure.yml
+
     - name: Remove cert
       file:
         path: "{{ config_dir }}/{{ cert_name }}"

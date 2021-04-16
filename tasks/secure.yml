@@ -1,0 +1,14 @@
+---
+- name: Get access application list
+  uri:
+    url: https://api.cloudflare.com/client/v4/accounts/{{ cf_account_id }}/access/apps
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer {{ cf_api_token }}
+    method: GET
+    register: access
+
+- name: debug access
+  debug:
+    var: access
+    verbosity: 1
