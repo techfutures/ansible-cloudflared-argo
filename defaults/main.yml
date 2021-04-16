@@ -25,3 +25,7 @@ ingress_rules:
     port: 22
     protocol: ssh
     hostname: ssh
+  node:
+    port: 9000
+    protocol: http
+    hostname: node

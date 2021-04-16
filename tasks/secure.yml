@@ -1,4 +1,5 @@
 ---
+# POST 
 - name: Get access application list
   uri:
     url: https://api.cloudflare.com/client/v4/accounts/{{ api_key }}/access/apps
