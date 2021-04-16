@@ -77,7 +77,7 @@
   block:
     - name: Extract tunnel certificate filename
       find:
-        paths: "{{ config_dir }}./credentials"
+        paths: "{{ config_dir }}/.credentials"
         use_regex: yes
         patterns: ".*.json"
         recurse: yes
