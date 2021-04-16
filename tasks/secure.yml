@@ -1,7 +1,7 @@
 ---
 - name: Get access application list
   uri:
-    url: https://api.cloudflare.com/client/v4/accounts/{{ cf_account_id }}/access/apps
+    url: https://api.cloudflare.com/client/v4/accounts/{{ api_key }}/access/apps
     headers:
       Content-Type: application/json
       Authorization: Bearer {{ api_secret }}
