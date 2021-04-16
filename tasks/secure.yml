@@ -44,7 +44,7 @@
       decision: "{{ item.key }}"
       name: "{{ item.value.name }}"
       include: "{{ item.value.include }}"
-      precedence: "{{ item.value.precedence }}"
+      precedence: "{{ item.value.precedence | int }}"
       exclude: "{{ item.value.exclude }}"
       require: "{{ item.value.require }}"
     method: POST
@@ -63,7 +63,7 @@
       decision: "{{ item.key }}"
       name: "{{ item.value.name }}"
       include: "{{ item.value.include }}"
-      precedence: "{{ item.value.precedence }}"
+      precedence: "{{ item.value.precedence | int }}"
       exclude: "{{ item.value.exclude }}"
       require: "{{ item.value.require }}"
     method: POST
