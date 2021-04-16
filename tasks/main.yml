@@ -36,14 +36,6 @@
           group: cloudflared
           mode: 0644
 
-      - name: Copy cert.pem
-        copy:
-          src: cert.pem
-          dest: "{{ config_dir }}/{{ cert_name }}"
-          owner: cloudflared
-          group: cloudflared
-          mode: 0600
-
       - name: Run tunnel create
         command:
           cmd: cloudflared tunnel create {{ argo_hostname }}
