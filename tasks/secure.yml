@@ -4,7 +4,7 @@
     url: https://api.cloudflare.com/client/v4/accounts/{{ cf_account_id }}/access/apps
     headers:
       Content-Type: application/json
-      Authorization: Bearer {{ cf_api_token }}
+      Authorization: Bearer {{ api_secret }}
     method: GET
     register: access
 
