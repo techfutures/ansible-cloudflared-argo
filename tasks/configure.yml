@@ -20,5 +20,3 @@
   service:
     name: cloudflared
     state: restarted
-  register: output
-  changed_when: output.rc == 0
