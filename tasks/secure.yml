@@ -10,7 +10,7 @@
       domain: "ssh-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
     method: POST
     body_format: json
-    status_code: 200
+    status_code: [200, 201]
   register: post_ssh_access_res
 
 - name: POST access application for services
@@ -25,7 +25,7 @@
       allowed_idps: "{{ allowed_idps | to_json }}"
     method: POST
     body_format: json
-    status_code: 200
+    status_code: [200, 201]
   register: post_services_access_res
 
 - name: Extract ids from post responses
@@ -47,7 +47,7 @@
       exclude: "{{ item.value.exclude | to_json }}"
       require: "{{ item.value.require | to_json }}"
     method: POST
-    status_code: 200
+    status_code: [200, 201]
     body_format: json
   register: post_services_policy_resp
   loop: "{{ decisions | dict2items }}"
@@ -66,7 +66,7 @@
       exclude: "{{ item.value.exclude | to_json }}"
       require: "{{ item.value.require | to_json }}"
     method: POST
-    status_code: 200
+    status_code: [200, 201]
     body_format: json
   register: post_ssh_policy_resp
   loop: "{{ decisions | dict2items }}"
