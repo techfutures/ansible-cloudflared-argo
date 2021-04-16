@@ -48,7 +48,6 @@
 
     - name: Secure tunnel
       include_tasks: secure.yml
-      when: search.matched != 0
 
     - name: Remove cert
       file:
