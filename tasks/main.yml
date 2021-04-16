@@ -60,7 +60,7 @@
       when: not install_only
 
     - name: Create DNS record
-      command: "cloudflared tunnel route dns {{ argo_hostname }}-{{ item.key }} {{ item.key }}-{{ argo_hostname}}.cstunnel.xyz"
+      command: "cloudflared tunnel route dns {{ argo_hostname }}-{{ device }} {{ item.key }}-{{ device }}-{{ argo_hostname}}.cstunnel.xyz"
       register: cloudflared_dns
       loop: "{{ ingress_rules | dict2items }}"
 
