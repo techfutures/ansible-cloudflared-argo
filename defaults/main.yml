@@ -25,4 +25,5 @@ ingress_rules:
   node:
     port: 9000
     protocol: http
-    path: /node
+    path: node
+    metrics_path: metrics
