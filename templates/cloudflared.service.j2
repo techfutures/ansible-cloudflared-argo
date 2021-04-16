@@ -5,7 +5,7 @@ After=network.target
 [Service]
 TimeoutStartSec=0
 Type=notify
-ExecStart={{ install_target_dir }}/cloudflared --config {{ config_dir }}/config.yml tunnel run
+ExecStart={{ install_target_dir }}/cloudflared --config {{ config_dir }}/config.yml tunnel run {{ argo_uuid }}
 Restart=on-failure
 RestartSec=5s
 
