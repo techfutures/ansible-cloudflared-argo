@@ -9,14 +9,11 @@ autoupdate-freq: {{ autoupdate_freq }}
 # ingress rules to provide to config file
 ingress:
   {% for service, details in ingress_rules.items() %}
-  {% if details.protocol not in ['http', 'https'] %}
-  - hostname: "{{ service }}-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
+  - hostname: "services-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
+    path: "{{ details.path }}"
     service: "{{ details.protocol }}://localhost:{{ details.port }}"
-  {% else %}
-  - hostname: "ssh-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
-    path: "/{{ service }}"
-    service: "{{ details.protocol }}://localhost:{{ details.port }}"
-  {% endif %}
   {% endfor %}
+  - hostname: "ssh-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
+    service: "ssh://localhost:{{ ssh_port }}"
   #catch all rule
   - service: "http_status:404"
