@@ -19,7 +19,7 @@ ssh_client_config_group: ""
 
 autoupdate_freq: 24h
 
-services:
+ingress_rules:
   ssh:
     port: 22
     protocol: ssh
