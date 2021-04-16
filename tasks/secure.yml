@@ -41,14 +41,12 @@
       Content-Type: application/json
       Authorization: Bearer {{ api_secret }}
     body: >-
-      '{
-        "decision": "{{ item.key }}",
+      '{"decision": "{{ item.key }}",
         "name": "{{ item.value.name }}",
         "include": {{ item.value.include }},
         "precedence": {{ item.value.precedence | int }},
         "exclude": {{ item.value.exclude }},
-        "require": {{ item.value.require }}
-      }'
+        "require": {{ item.value.require }}}'
     method: POST
     status_code: [200, 201]
     body_format: json
@@ -62,14 +60,12 @@
       Content-Type: application/json
       Authorization: Bearer {{ api_secret }}
     body: >-
-      '{
-        "decision": "{{ item.key }}",
+      '{"decision": "{{ item.key }}",
         "name": "{{ item.value.name }}",
         "include": {{ item.value.include }},
         "precedence": {{ item.value.precedence | int }},
         "exclude": {{ item.value.exclude }},
-        "require": {{ item.value.require }}
-      }'
+        "require": {{ item.value.require }}}'
     method: POST
     status_code: [200, 201]
     body_format: json
