@@ -42,11 +42,11 @@
       Authorization: Bearer {{ api_secret }}
     body: >-
       '{
-        "decision": "{{ item.key }}"
-        "name": "{{ item.value.name }}"
-        "include": {{ item.value.include }}
-        "precedence": {{ item.value.precedence | int }}
-        "exclude": {{ item.value.exclude }}
+        "decision": "{{ item.key }}",
+        "name": "{{ item.value.name }}",
+        "include": {{ item.value.include }},
+        "precedence": {{ item.value.precedence | int }},
+        "exclude": {{ item.value.exclude }},
         "require": {{ item.value.require }}
       }'
     method: POST
@@ -63,11 +63,11 @@
       Authorization: Bearer {{ api_secret }}
     body: >-
       '{
-        "decision": "{{ item.key }}"
-        "name": "{{ item.value.name }}"
-        "include": {{ item.value.include }}
-        "precedence": {{ item.value.precedence | int }}
-        "exclude": {{ item.value.exclude }}
+        "decision": "{{ item.key }}",
+        "name": "{{ item.value.name }}",
+        "include": {{ item.value.include }},
+        "precedence": {{ item.value.precedence | int }},
+        "exclude": {{ item.value.exclude }},
         "require": {{ item.value.require }}
       }'
     method: POST
