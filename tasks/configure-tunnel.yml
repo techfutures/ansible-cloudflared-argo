@@ -34,3 +34,4 @@
     owner: cloudflared
     group: cloudflared
     mode: 0755
+    trim_blocks: no
