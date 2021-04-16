@@ -43,10 +43,10 @@
     body:
       decision: "{{ item.key }}"
       name: "{{ item.value.name }}"
-      include: "{{ item.value.include | to_json }}"
+      include: "{{ item.value.include }}"
       precedence: "{{ item.value.precedence }}"
-      exclude: "{{ item.value.exclude | to_json }}"
-      require: "{{ item.value.require | to_json }}"
+      exclude: "{{ item.value.exclude }}"
+      require: "{{ item.value.require }}"
     method: POST
     status_code: [200, 201]
     body_format: json
@@ -62,10 +62,10 @@
     body:
       decision: "{{ item.key }}"
       name: "{{ item.value.name }}"
-      include: "{{ item.value.include | to_json }}"
+      include: "{{ item.value.include }}"
       precedence: "{{ item.value.precedence }}"
-      exclude: "{{ item.value.exclude | to_json }}"
-      require: "{{ item.value.require | to_json }}"
+      exclude: "{{ item.value.exclude }}"
+      require: "{{ item.value.require }}"
     method: POST
     status_code: [200, 201]
     body_format: json
