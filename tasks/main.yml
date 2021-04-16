@@ -52,9 +52,13 @@
       when: not install_only
 
     - name: Create DNS record
-      command: "cloudflared tunnel route dns {{ argo_basename }}-{{ item.key }} {{ item.key }}-{{ argo_basename}}.cstunnel.xyz"
+      command: "cloudflared tunnel route dns {{ argo_hostname }}-{{ item.key }} {{ item.key }}-{{ argo_hostname}}.cstunnel.xyz"
       register: cloudflared_dns
-      loop: "{{ services | dict2items }}"
+      loop: "{{ ingress_rules | dict2items }}"
+
+    - name: debug dns request
+      debug:
+        var: cloudflared_dns
 
     - name: Remove cert
       file:
