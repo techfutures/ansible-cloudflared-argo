@@ -31,8 +31,8 @@
 
 - name: Extract ids from post responses
   set_fact:
-    ssh_uid: "{{ post_ssh_access_res.result.uid }}"
-    services_uid: "{{ post_services_access_res.result.uid }}"
+    ssh_uid: "{{ post_ssh_access_res.json.result.uid }}"
+    services_uid: "{{ post_services_access_res.json.result.uid }}"
 
 - name: POST policies for services
   uri:
