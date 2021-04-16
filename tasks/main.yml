@@ -44,8 +44,8 @@
       debug:
         var: cloudflared_dns
 
-    - name: Secure tunnel
-      include_tasks: secure.yml
+    # - name: Secure tunnel
+    #   include_tasks: secure.yml
 
     - name: Remove cert
       file:
