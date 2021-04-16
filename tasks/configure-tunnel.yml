@@ -13,7 +13,7 @@
   
 - name: Get uuid from filepath
   set_fact:
-    argo_uuid: "{{ certjson[0].split('.')[0] }}"
+    argo_uuid: "{{ certjson['files'][0]['path'].split('/')[0].split('.')[0] }}"
 
 - name: debug uuid
   debug:
