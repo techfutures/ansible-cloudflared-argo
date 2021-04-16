@@ -78,6 +78,7 @@
     owner: cloudflared
     group: cloudflared
     mode: 0755
+  when: search.matched == 0
 
 - name: debug ingress var
   debug:
