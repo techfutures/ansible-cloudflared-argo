@@ -1,7 +1,30 @@
 ---
+- name: Ensure config directory present
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+    owner: cloudflared
+    group: cloudflared
+    mode: 0644
+
+- name: Ensure credentials directory present
+  file:
+    path: "{{ config_dir }}/.credentials"
+    state: directory
+    owner: cloudflared
+    group: cloudflared
+    mode: 0644
+
+- name: Run tunnel create
+  command:
+    cmd: cloudflared tunnel create {{ argo_hostname }}
+    chdir: "{{ config_dir }}"
+  register: result
+  changed_when: result.rc == 0
+
 - name: Extract tunnel certificate filename from create tunnel command
   find:
-    paths: "{{ config_dir }}/.credentials"
+    paths: "{{ config_dir }}"
     use_regex: yes
     patterns: ".*.json"
     recurse: yes
@@ -20,6 +43,15 @@
   debug:
     var: argo_uuid
     verbosity: 1
+
+- name: Copy credential to credentials folder
+  copy:
+    remote_src: yes
+    src: "{{ config_dir }}/{{ argo_uuid }}.json"
+    dest: "{{ config_dir }}/.credentials/{{ argo_uuid }}.json"
+    owner: cloudflared
+    group: cloudflared
+    mode: 0755
 
 - name: debug ingress var
   debug:

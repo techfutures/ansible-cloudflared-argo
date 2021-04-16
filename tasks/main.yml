@@ -28,30 +28,6 @@
 
     - name: Configuration tasks
       block:
-      - name: Ensure config directory present
-        file:
-          path: "{{ config_dir }}"
-          state: directory
-          owner: cloudflared
-          group: cloudflared
-          mode: 0644
-  
-      - name: Ensure credentials directory present
-        file:
-          path: "{{ config_dir }}/.credentials"
-          state: directory
-          owner: cloudflared
-          group: cloudflared
-          mode: 0644
-
-      - name: Run tunnel create
-        command:
-          cmd: cloudflared tunnel create {{ argo_hostname }}
-          chdir: "{{ config_dir }}/.credentials"
-          creates: "{{ config_dir }}/.credentials/*.json"
-        register: result
-        changed_when: result.rc == 0
-
       - name: Configure tunnel
         include_tasks: configure-tunnel.yml
 
