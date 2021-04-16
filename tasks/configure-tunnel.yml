@@ -3,7 +3,7 @@
   find:
     paths: "{{ config_dir }}"
     use_regex: yes
-    patterns: ".*\.json"
+    patterns: ".*.json"
     recurse: yes
   register: certjson
 
