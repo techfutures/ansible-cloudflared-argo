@@ -2,7 +2,7 @@
 
 tunnel: {{ argo_hostname }}-{{ device }}
 uuid: {{ argo_uuid }}
-credentials-file: {{ config_dir }}/{{ argo_uuid }}.json
+credentials-file: {{ config_dir }}/.credentials/{{ argo_uuid }}.json
 logfile: {{ log_dir }}/cloudflared.log
 autoupdate-freq: {{ autoupdate_freq }}
 
