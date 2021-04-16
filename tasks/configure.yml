@@ -20,3 +20,4 @@
   service:
     name: cloudflared
     state: restarted
+    enabled: yes
