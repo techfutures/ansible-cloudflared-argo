@@ -16,15 +16,15 @@
   set_fact:
     #argo_uuid: "{{ certjson['files'][0]['path'].split('/')[0].split('.')[0] }}"
     argo_uuid: "{{ certjson['files'][0]['path'].split('/')[2].split('.')[0] }}"
-    
+
 - name: debug uuid
   debug:
     var: argo_uuid
     verbosity: 1
 
-- name: debug services var
+- name: debug ingress var
   debug:
-    var: services
+    var: ingress_rules
     verbosity: 1
 
 - name: Template cloudflared config file
