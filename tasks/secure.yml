@@ -6,7 +6,7 @@
       Content-Type: application/json
       Authorization: Bearer {{ api_secret }}
     method: GET
-    register: access
+  register: access
 
 - name: debug access
   debug:
