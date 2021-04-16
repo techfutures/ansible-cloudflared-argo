@@ -15,20 +15,46 @@
     group: cloudflared
     mode: 0644
 
-- name: Run tunnel create
-  command:
-    cmd: cloudflared tunnel create {{ argo_hostname }}
-    chdir: "{{ config_dir }}"
-  register: result
-  changed_when: result.rc == 0
-
-- name: Extract tunnel certificate filename from create tunnel command
+- name: Get existing json credential, there is one
   find:
-    paths: "{{ config_dir }}"
+    paths: "{{ config_dir }}/.credentials"
     use_regex: yes
     patterns: ".*.json"
     recurse: yes
-  register: certjson
+  register: search
+
+- name: Block for if json credential does not exist
+  block:
+    - name: Run tunnel create
+      command:
+        cmd: cloudflared tunnel create {{ argo_hostname }}
+        chdir: "{{ config_dir }}"
+      register: result
+      changed_when: result.rc == 0
+
+    - name: Extract tunnel certificate filename from create tunnel command
+      find:
+        paths: "{{ config_dir }}"
+        use_regex: yes
+        patterns: ".*.json"
+        recurse: yes
+      register: certjson
+  when: search.matched == 0
+
+- name: Block for if json credential does exist
+  block:
+    - name: Extract tunnel certificate filename
+      find:
+        paths: "{{ config_dir }}./credentials"
+        use_regex: yes
+        patterns: ".*.json"
+        recurse: yes
+      register: certjson
+  when: search.matched == 1
+
+- name: Assert that we have file
+  assert:
+    that: certjson is defined
 
 - name: debug filepaths
   debug:
