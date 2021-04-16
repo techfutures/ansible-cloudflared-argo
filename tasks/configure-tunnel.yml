@@ -10,18 +10,21 @@
 - name: debug filepaths
   debug:
     var: certjson
+    verbosity: 1
   
 - name: Get uuid from filepath
   set_fact:
-    argo_uuid: "{{ certjson['files'][0]['path'].split('/')[0].split('.')[0] }}"
-
+    #argo_uuid: "{{ certjson['files'][0]['path'].split('/')[0].split('.')[0] }}"
+    argo_uuid: "{{ certjson['files'][0]['path'] }}"
 - name: debug uuid
   debug:
     var: argo_uuid
+    verbosity: 1
 
-- name: debug uuid
+- name: debug services var
   debug:
     var: services
+    verbosity: 1
 
 - name: Template cloudflared config file
   template:
