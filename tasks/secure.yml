@@ -21,7 +21,7 @@
       Authorization: Bearer {{ api_secret }}
     body:
       name: "{{ argo_hostname.upper() }} {{ device.upper() }} SERVICES"
-      domain: "services-{{ device }}-{{ argo_hostname }}.cstunnel.xyz/*"
+      domain: "services-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
       allowed_idps: "{{ allowed_idps | to_json }}"
     method: POST
     body_format: json
