@@ -23,6 +23,11 @@
     recurse: yes
   register: search
 
+- name: debug search
+  debug:
+    var: search
+    verbosity: 1
+
 - name: Block for if json credential does not exist
   block:
     - name: Run tunnel create
