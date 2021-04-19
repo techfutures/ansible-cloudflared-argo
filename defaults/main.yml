@@ -26,5 +26,7 @@ ingress_rules:
   node:
     port: 9000
     protocol: http
-    path: node
-    metrics_path: metrics
+    # paths to route to service
+    paths:
+      - node
+      - metrics

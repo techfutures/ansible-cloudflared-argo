@@ -10,7 +10,7 @@ autoupdate-freq: {{ autoupdate_freq }}
 ingress:
   {% for service, details in ingress_rules.items() %}
   - hostname: "services-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
-    path: "/{{ details.path }}"
+    path: "(/{{ details.paths|join('|') }})"
     service: "{{ details.protocol }}://localhost:{{ details.port }}"
   {% endfor %}
   - hostname: "ssh-{{ device }}-{{ argo_hostname }}.cstunnel.xyz"
