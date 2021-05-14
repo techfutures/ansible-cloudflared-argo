@@ -42,6 +42,7 @@
     command: mv /root/.cloudflared/*.json /etc/cloudflared/.credentials
     register: result
     changed_when: result.rc == 0
+    ignore_errors: yes
 
   when: search.matched < 1
 
