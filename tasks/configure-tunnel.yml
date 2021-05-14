@@ -44,7 +44,7 @@
     changed_when: result.rc == 0
     ignore_errors: yes
 
-  when: search.matched < 1
+  when: search.matched <= 1
 
 - name: debug search
   debug:
@@ -94,7 +94,7 @@
     #     owner: cloudflared
     #     group: cloudflared
     #     mode: 0755
-  when: search.matched == 0
+  when: search.matched <= 1
 
 - name: Block for if json credential does exist
   block:
@@ -123,7 +123,7 @@
       debug:
         var: argo_uuid
         verbosity: 1
-  when: search.matched == 1
+  when: search.matched > 1
 
 
 - name: debug ingress var
