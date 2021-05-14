@@ -55,7 +55,7 @@
   block:
     - name: Run tunnel create
       command:
-        cmd: cloudflared tunnel create {{ argo_hostname }}-{{ device }}
+        cmd: cloudflared tunnel --origincert {{ config_dir }}/.credentials/{{ cert_name }} create {{ argo_hostname }}-{{ device }}
         chdir: "{{ config_dir }}/.credentials"
       register: result
       changed_when: result.rc == 0

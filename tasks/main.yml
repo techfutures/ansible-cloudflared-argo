@@ -36,7 +36,7 @@
       when: not install_only
 
     - name: Create DNS records
-      command: "cloudflared tunnel route dns {{ argo_hostname }}-{{ device }} {{ item }}-{{ device }}-{{ argo_hostname}}.cstunnel.xyz"
+      command: "cloudflared tunnel --origincert {{ config_dir }}/.credentials/{{ cert_name }} route dns {{ argo_hostname }}-{{ device }} {{ item }}-{{ device }}-{{ argo_hostname}}.cstunnel.xyz"
       register: cloudflared_dns
       with_items:
         - ssh
