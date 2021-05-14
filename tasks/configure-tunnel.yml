@@ -56,13 +56,13 @@
     - name: Run tunnel create
       command:
         cmd: cloudflared tunnel create {{ argo_hostname }}-{{ device }}
-        chdir: "{{ config_dir }}"
+        chdir: "{{ config_dir }}/.credentials"
       register: result
       changed_when: result.rc == 0
 
     - name: Extract tunnel certificate filename from create tunnel command
       find:
-        paths: "{{ config_dir }}"
+        paths: "{{ config_dir }}/.credentials"
         use_regex: yes
         patterns: ".*.json"
         recurse: yes
@@ -86,14 +86,14 @@
         var: argo_uuid
         verbosity: 1
 
-    - name: Copy credential to credentials folder
-      copy:
-        remote_src: yes
-        src: "{{ config_dir }}/{{ argo_uuid }}.json"
-        dest: "{{ config_dir }}/.credentials/{{ argo_uuid }}.json"
-        owner: cloudflared
-        group: cloudflared
-        mode: 0755
+    # - name: Copy credential to credentials folder
+    #   copy:
+    #     remote_src: yes
+    #     src: "{{ config_dir }}/{{ argo_uuid }}.json"
+    #     dest: "{{ config_dir }}/.credentials/{{ argo_uuid }}.json"
+    #     owner: cloudflared
+    #     group: cloudflared
+    #     mode: 0755
   when: search.matched == 0
 
 - name: Block for if json credential does exist

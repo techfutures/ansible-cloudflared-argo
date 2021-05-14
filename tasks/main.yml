@@ -51,10 +51,10 @@
 
     - name: Remove cert
       file:
-        path: "{{ config_dir }}/{{ cert_name }}"
+        path: "{{ config_dir }}/.credentials/{{ cert_name }}"
         state: absent
   rescue:
     - name: Remove cert if errors
       file:
-        path: "{{ config_dir }}/{{ cert_name }}"
+        path: "{{ config_dir }}/.credentials/{{ cert_name }}"
         state: absent
