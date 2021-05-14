@@ -31,7 +31,7 @@
     patterns: ".*.json"
     recurse: yes
   register: search
-  when: search.matched != 1
+  when: search.matched < 1
 
 - name: debug search
   debug:
