@@ -33,6 +33,11 @@
   register: search
   when: search.matched < 1
 
+- name: Remove legacy cert.pem
+  file:
+    path: /root/.cloudflared/cert.pem
+    state: absent
+
 - name: debug search
   debug:
     var: search
