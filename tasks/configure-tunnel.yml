@@ -41,7 +41,7 @@
   - name: Move legacy credentials file to new folder
     command: mv /root/.cloudflared/*.json /etc/cloudflared/.credentials
     register: result
-    changed when: result.rc == 0
+    changed_when: result.rc == 0
 
   when: search.matched < 1
 
