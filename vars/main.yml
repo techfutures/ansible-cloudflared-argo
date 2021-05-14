@@ -16,7 +16,7 @@ cf_binaries:
     filename_tgz: cloudflared-stable-linux-arm.tgz
     filename_deb: cloudflared-stable-linux-arm.deb
     filename_rpm: cloudflared-stable-linux-arm.rpm
-  armv71:
+  armv7l:
     filename_tgz: cloudflared-stable-linux-arm.tgz
     filename_deb: cloudflared-stable-linux-arm.deb
     filename_rpm: cloudflared-stable-linux-arm.rpm
