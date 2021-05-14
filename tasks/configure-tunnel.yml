@@ -15,6 +15,10 @@
     group: cloudflared
     mode: 0644
 
+- name: Remove legacy cert.pem
+  file:
+    path: /root/.cloudflared/cert.pem
+    state: absent
 
 - name: Get existing json credential, there is one
   find:
@@ -38,13 +42,8 @@
     command: mv /root/.cloudflared/*.json /etc/cloudflared/.credentials
     register: result
     changed when: result.rc == 0
-    
-  when: search.matched < 1
 
-- name: Remove legacy cert.pem
-  file:
-    path: /root/.cloudflared/cert.pem
-    state: absent
+  when: search.matched < 1
 
 - name: debug search
   debug:
