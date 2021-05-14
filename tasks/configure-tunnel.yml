@@ -24,13 +24,21 @@
     recurse: yes
   register: search
 
-- name: Look for credential in legacy folder
-  find:
-    paths: "/root/.cloudflared"
-    use_regex: yes
-    patterns: ".*.json"
-    recurse: yes
-  register: search
+- name: Legacy credential operations
+  block:
+  - name: Look for credential in legacy folder
+    find:
+      paths: "/root/.cloudflared"
+      use_regex: yes
+      patterns: ".*.json"
+      recurse: yes
+    register: search
+  
+  - name: Move legacy credentials file to new folder
+    command: mv /root/.cloudflared/*.json /etc/cloudflared/.credentials
+    register: result
+    changed when: result.rc == 0
+    
   when: search.matched < 1
 
 - name: Remove legacy cert.pem
