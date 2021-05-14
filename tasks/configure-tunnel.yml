@@ -15,6 +15,7 @@
     group: cloudflared
     mode: 0644
 
+
 - name: Get existing json credential, there is one
   find:
     paths: "{{ config_dir }}/.credentials"
@@ -22,6 +23,15 @@
     patterns: ".*.json"
     recurse: yes
   register: search
+
+- name: Look for credential in legacy folder
+  find:
+    paths: "/root/.cloudflared"
+    use_regex: yes
+    patterns: ".*.json"
+    recurse: yes
+  register: search
+  when: search.matched != 1
 
 - name: debug search
   debug:
