@@ -20,6 +20,7 @@
     get_url:
       url: "https://github.com/cloudflare/cloudflared/releases/download/2021.6.0/cloudflared-linux-arm64"
       dest: "{{ install_target_dir }}"
+      mode: 0755
   - name: Rename binary
     command: mv {{ install_target_dir }}/cloudflared-linux-arm64 {{ install_target_dir }}/cloudflared
     register: result
