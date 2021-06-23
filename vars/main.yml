@@ -21,9 +21,9 @@ cf_binaries:
     filename_deb: cloudflared-stable-linux-arm.deb
     filename_rpm: cloudflared-stable-linux-arm.rpm
   aarch64:
-    filename_tgz: null
-    filename_deb: null
-    filename_rpm: null
+    filename_tgz: ''
+    filename_deb: ''
+    filename_rpm: ''
 
 
 ## common values
