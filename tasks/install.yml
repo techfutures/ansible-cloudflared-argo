@@ -14,10 +14,16 @@
     - not stat_result.stat.exists or force_install
     - "ansible_machine != 'aarch64'"
 
-- name: Unarchive {{ cf_binary_filename }} to {{ install_target_dir }}
-  get_url:
-    url: "https://github.com/cloudflare/cloudflared/releases/download/2021.6.0/cloudflared-linux-arm64"
-    dest: "{{ install_target_dir }}"
+- name: Tasks for aarch64
+  block:
+  - name: Unarchive {{ cf_binary_filename }} to {{ install_target_dir }}
+    get_url:
+      url: "https://github.com/cloudflare/cloudflared/releases/download/2021.6.0/cloudflared-linux-arm64"
+      dest: "{{ install_target_dir }}"
+  - name: Rename binary
+    command: mv {{ install_target_dir }}/cloudflared-linux-arm64 {{ install_target_dir }}/cloudflared
+    register: result
+    changed_when: result.rc == 0
   when: 
     - "ansible_machine == 'aarch64'"
 
