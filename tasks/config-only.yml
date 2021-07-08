@@ -1,0 +1,23 @@
+---
+- name: Ensure config directory present
+  file:
+    path: "{{ config_dir }}"
+    state: directory
+    owner: cloudflared
+    group: cloudflared
+    mode: 0644
+
+- name: Template cloudflared config file
+  template:
+    src: config.yml.j2
+    dest: "{{ config_dir }}/config.yml"
+    owner: cloudflared
+    group: cloudflared
+    mode: 0755
+    trim_blocks: no
+
+- name: Start service
+  service:
+    name: cloudflared
+    state: restarted
+    enabled: yes

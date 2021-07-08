@@ -2,6 +2,13 @@
 # tasks file for cloudflared
 - name: Catch error block
   block:
+
+    - name: Config only block
+      block:
+      - name: Include specific config tasks
+        include_tasks: config-only.yml
+        when: config_only
+
     - name: Define required variables
       set_fact:
         daemon_location: "{{ install_target_dir }}/cloudflared"
